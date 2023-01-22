@@ -18,3 +18,5 @@ Tulen viemään sovelluksen tuotantoon jaettavaksi useille käyttäjille. Tähä
 
 ## Flynky
   -	Alun perin Saksasta rantautunut urheilullinen ja seurallinen peli, josta on syntynyt useita pieniä muutoksia sisältäviä variaatioita. Perusidea on kuitenkin hyvin sama, joten jos osaat pelata esimerkiksi pallon kanssa osaat myös pelata frisbeen kanssa.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YfvTQjoIykY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
