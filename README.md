@@ -7,7 +7,7 @@ Sovellus on tietokantaan perustuva karttasovellus, jolla näytetään flunkyyn j
 
 Karttapohjana tulen käyttämään Mapboxin tarjoamaa gl js API-rajapintaa. 
 
-Sovelluksen kehittyessä on tarkoitus myös lisätä edistyneempiä toimintoja, kuten mahdollisesti turnauksen suunnitteleminen tai ottelun lisääminen automaattisesti telegram-botin kanssa, mikäli botti huomaa määrätylle kanavalle tulleen viestin suunnitellusta flunky- tai kyykkäottelusta. Myös pelipaikoille tulee kehittää erilaisia ominaisuuksia, kuten mahdollisuus arvostella sijaintia esimerkiksi väljyyden tai ympäristön rauhallisuuden perusteella. 
+Sovelluksen kehittyessä on tarkoitus myös lisätä edistyneempiä toimintoja, kuten mahdollisesti turnauksen suunnitteleminen tai ottelun lisääminen automaattisesti telegram-botin kanssa, mikäli botti huomaa määrätylle kanavalle tulleen viestin suunnitellusta flunky- tai kyykkäottelusta (Huom. telegrambotti on tärkeyslistassa viimeisimpänä). Myös pelipaikoille tulee kehittää erilaisia ominaisuuksia, kuten mahdollisuus arvostella sijaintia esimerkiksi väljyyden tai ympäristön rauhallisuuden perusteella. 
 
 Tulen viemään sovelluksen tuotantoon jaettavaksi useille käyttäjille. Tähän tarkoitukseen tulen todennäköisesti käyttämään fly.io palvelua tai mahdollisesti olen myös valmis kokeilun nimissä maksamaan herokun palveluista.  
 
