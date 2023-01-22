@@ -5,6 +5,8 @@
 
 Sovellus on tietokantaan perustuva karttasovellus, jolla näytetään flunkyyn ja kyykkään soveltuvat pelipaikat. Pelipaikkojen lisäys karttaan tapahtuu käyttäjän antamien parametrien pohjalta. Lisäksi sovelluksessa on toiminto, jolla voi sopia etukäteen flunkyottelusta. 
 
+Karttapohjana tulen käyttämään Mapboxin tarjoamaa GL JS 
+
 Sovelluksen kehittyessä on tarkoitus myös lisätä edistyneempiä toimintoja, kuten mahdollisesti turnauksen suunnitteleminen tai ottelun lisääminen automaattisesti telegram-botin kanssa, mikäli botti huomaa määrätylle kanavalle tulleen viestin suunnitellusta flunky- tai kyykkäottelusta. 
 
 # Mikä kyykkä? Mikä flunky?
