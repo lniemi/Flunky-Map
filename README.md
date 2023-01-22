@@ -10,7 +10,7 @@ Sovelluksen kehittyessä on tarkoitus myös lisätä edistyneempiä toimintoja, 
 # Mikä kyykkä? Mikä flunky?
 
 ## Kyykkä
-  - Vuosisatoja vanha karajalainen ulkona pelattava peli. https://fi.wikipedia.org/wiki/Kyykk%C3%A4
+  - Vuosisatoja vanha karjalainen ulkona pelattava peli. https://fi.wikipedia.org/wiki/Kyykk%C3%A4
 
 ## Flynky
   -	Alun perin Saksasta rantautunut urheilullinen ja seurallinen peli, josta on syntynyt useita pieniä muutoksia sisältäviä variaatioita. Perusidea on kuitenkin hyvin sama, joten jos osaat pelata esimerkiksi pallon kanssa osaat myös pelata frisbeen kanssa.
