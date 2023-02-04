@@ -21,3 +21,6 @@ Tulen viemään sovelluksen tuotantoon jaettavaksi useille käyttäjille. Tähä
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YfvTQjoIykY/0.jpg)](https://www.youtube.com/watch?v=YfvTQjoIykY)
 
+## Muuta, kehityksen tila yms.
+  - Tällä hetkellä sovelluksessa toimii kirjautuminen ja paikan merkitseminen kartan avulla tietokantaan. 
+  - 
