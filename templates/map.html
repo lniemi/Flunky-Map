@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8' />
+  <title>Flunky-Map</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css' rel='stylesheet' />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .marker {
+    background-image: url('https://docs.mapbox.com/help/demos/custom-markers-gl-js/mapbox-icon.png');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    }
+
+
+  </style>
+</head>
+<body>
+<div id='map'></div>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibG5pZW1pIiwiYSI6ImNsZDc5amdsczA1cGozcm84c25xeGcyejkifQ.z9H43WLo3Xb6z6iGTedp0A';
+    
+    const map = new mapboxgl.Map({
+          container: 'map', // Specify the container ID
+          style: 'mapbox://styles/lniemi/cldcdrjqd000l01nmanxwhojf', // Specify which map style to use
+          zoom: 11,
+          center: [24.948, 60.182], // Specify the starting position [lng, lat]
+        });
+    
+        map.on('load', function() {
+    // add the location data as a source
+    map.addSource('locations', {
+        type: 'geojson',
+        data: '/api/locations'
+    });
+
+    // add a definition for the icon in the style
+    map.loadImage('/static/frisbee.png', function(error, image) {
+        if (error) throw error;
+        map.addImage('icon', image);
+    });
+
+    // add the location data as a layer
+    map.addLayer({
+        id: 'locations',
+        type: 'symbol',
+        source: 'locations',
+        layout: {
+            'icon-image': 'icon',
+            'icon-size': 0.11
+        }
+    });
+    
+        // add a popup for each marker
+        map.on('click', 'locations', function(e) {
+            var place_name = e.features[0].properties.place_name;
+            var coordinates = e.features[0].geometry.coordinates.slice();
+            var description = 'Place Name: ' + place_name;
+    
+            new mapboxgl.Popup()
+                .setLngLat(coordinates)
+                .setHTML(description)
+                .addTo(map);
+        });
+    
+        // change the cursor style when the mouse is over the locations layer
+        map.on('mouseenter', 'locations', function() {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+    
+        // change the cursor back to the default style when the mouse leaves the locations layer
+        map.on('mouseleave', 'locations', function() {
+            map.getCanvas().style.cursor = '';
+        });
+    });
+    </script>>
+</body>
+</html> 
+
