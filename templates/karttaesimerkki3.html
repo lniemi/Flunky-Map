@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8' />
+  <title>Flunky-Map</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css' rel='stylesheet' />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .marker {
+    background-image: url('https://docs.mapbox.com/help/demos/custom-markers-gl-js/mapbox-icon.png');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    }
+
+    .mapboxgl-popup {
+    max-width: 200px;
+    }
+
+    .mapboxgl-popup-content {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    }
+
+    form {
+    width: 500px; /* or any other value */
+    height: 700px; /* or any other value */
+    padding: 20px;
+    background-color: orange;
+    border: 1px solid gray;
+    }
+
+    label {
+    margin-bottom: 10px;
+    }
+
+    input[type="text"], input[type="number"] {
+    width: 400px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid gray;
+    }
+
+    input[type="select"] {
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+
+    input[type="submit"] {
+    background-color: blue;
+    color: rgb(255, 197, 111);
+    padding: 10px 20px;
+    border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id='map'></div>
+
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibG5pZW1pIiwiYSI6ImNsZDc5amdsczA1cGozcm84c25xeGcyejkifQ.z9H43WLo3Xb6z6iGTedp0A';
+    const map = new mapboxgl.Map({
+      container: 'map', // Specify the container ID
+      style: 'mapbox://styles/lniemi/cldcdrjqd000l01nmanxwhojf', // Specify which map style to use
+      zoom: 11,
+      center: [24.948, 60.182], // Specify the starting position [lng, lat]
+    });
+
+    var marker = new mapboxgl.Marker();
+
+    function add_marker (event) {
+    var coordinates = event.lngLat;
+    console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
+    marker.setLngLat(coordinates).addTo(map);
+    }
+
+    map.on('click', add_marker);
+
+
+
+    map.on('click', function(e) {
+  // Remove any existing forms
+  var existingForm = document.getElementById('form');
+  if (existingForm) {
+    existingForm.remove();
+  }
+
+  var lngLat = e.lngLat;
+  var lng = lngLat.lng;
+  var lat = lngLat.lat;
+
+  // UUSi
+  map.flyTo({
+    offset: [0, -window.innerHeight * -0.33], // shift the center 25% up from the bottom of the page
+    center: [lng, lat],
+    essential: true // this animation is considered essential with respect to prefers-reduced-motion
+  });
+
+
+  // Create a form with hidden fields for the lng and lat values
+  var form = document.createElement('form');
+  form.id = "form";
+  form.innerHTML = 
+                  '<div>' +
+                  '<label>Coordinates:</label>' +
+                  '<input type="text" name="coordinates" value="' + lng + ', ' + lat + '" readonly>' +
+                  '</div>' +
+                  '<input type="hidden" name="lng" value="' + lng + '">' +
+                  '<input type="hidden" name="lat" value="' + lat + '">' +
+                  '<input type="hidden" name="username" value="' + (sessionStorage.getItem('username') || '') + '">' +
+                  '<div>' +
+                  '<label>Place Name:</label>' +
+                  '<input type="text" name="place_name">' +
+                  '</div>' +
+                  '<label>1. Space: How big is the area and is there enough space to set up<br> the playing ground?</label>' +
+                  '<div>' +
+                  '<input type="number" name="space" min="0" max="10">' +
+                  '</div>' +
+                  '<label>2. Ground Type:</label>' +
+                  '<div>' +
+                  '<select name="ground_type">' +
+                    '<option value="grass">Grass Or Artificial Turf</option>' +
+                    '<option value="asphaltetc">Asphalt Or Concrete (etc.)</option>' +
+                    '<option value="gravel">Gravel Or Sand</option>' +
+                    '<option value="indoor">Indoor Surfaces</option>' +
+                    '<option value="other">Other</option>' +
+                  '</select>' +
+                  '</div>' +
+                  '<div>' +
+                  '<label><br>3. Surroundings: How much do obstacles <br>(e.g. trees, rocks, constuction structures) or hazards (e.g. uneven ground)<br> impact the area?</label>' +
+                  '</div>' +
+                  '<input type="number" name="surroundings" min="0" max="10">' +
+                  '<div>' +
+                  '<label>4. Crowds: Is the area busy and are there many people around?</label>' +
+                  '</div>' +
+                  '<input type="number" name="crowds" min="0" max="10">' +
+                  '<div>' +
+                  '<label>5. Lighting: Is the location well-lit, especially in the evening?</label>' +
+                  '</div>' +
+                  '<input type="number" name="light" min="0" max="10">' +
+                  '<div>' +
+                  '<label>6. Are there restrooms nearby? (Yes/No/Do not know)</label>' +
+                  '<div>' +
+                  '<select name="restrooms">' +
+                    '<option value="Yes">Yes</option>' +
+                    '<option value="No">No</option>' +
+                    '<option value="NoInfo">Do not know</option>' +
+                  '</select>' +
+                  '</div>' +
+                  '<div>' +
+                  '<label for="image">Upload Image (optional):</label>' +
+                  '<input type="file" name="image" id="image">' +
+                  '<input type="submit" value="Submit">'; +
+                  '</div>'
+
+
+  // add a read-only text field to display the coordinates
+//  var coordField = document.createElement("input");
+//  coordField.type = "text";
+//  coordField.value = lng + ", " + lat;
+//  coordField.readOnly = true;
+//  coordField.style.fontStyle = "italic";
+//  form.insertBefore(coordField, form.firstChild);
+  //
+  // Add the form to the page and position it in the middle of the screen
+  document.body.appendChild(form);
+  form.style.position = 'absolute';
+  form.style.left = (window.innerWidth / 2) - (form.offsetWidth / 2) + 'px';
+  form.style.top = '100px';
+  form.style.padding = '20px';
+  form.style.zIndex = '999';
+
+  //Handle the form submission
+  form.addEventListener("submit", function(event){
+    event.preventDefault();
+    // send the form data to the server
+    // handle form validation and display any error messages
+    // store the data in the postgresql database
+    var formData = new FormData(form);
+    fetch('/save-form-data1', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = "/thankyou";
+        } else {
+            throw new Error("Network response was not ok.");
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+
+  });
+
+
+});
+  </script>
+
+</body>
+</html> 
