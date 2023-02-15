@@ -22,5 +22,6 @@ Tulen viemään sovelluksen tuotantoon jaettavaksi useille käyttäjille. Tähä
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YfvTQjoIykY/0.jpg)](https://www.youtube.com/watch?v=YfvTQjoIykY)
 
 ## Muuta, kehityksen tila yms.
+  - Sovelluksen keskeneräinen versio on testattavissa fly.io:ssa https://flunkymap.fly.dev/
   - Tällä hetkellä sovelluksessa toimii kirjautuminen ja paikan merkitseminen kartan avulla tietokantaan. 
-  - 
+  - Keskeisen ominaisuuden eli sijainin lisääminen kartalle onnistuu, vaikka lomake ei annakkaan käyttäjälle palautetta tietojen menemisestä läpi. 
