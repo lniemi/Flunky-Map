@@ -27,3 +27,4 @@ Tulen viemään sovelluksen tuotantoon jaettavaksi useille käyttäjille. Tähä
   - Lomake uuden sijainnin lisäämiseksi toimii *tarpeeksi* hyvin tietokoneen selaimella. Mobiiliselaimella lomake ei kuitenkaan mukaudu näytölle ikkunan koon mukaisesti. 
   - Profiilisivu on tekemeättä. 
   - Kuvien näyttäminen ei 'all locations' sivulla onnistu. Kuvat siirtyvät tietokantaan kuitenkin lomakkeen kautta. 
+  - Koodi vaatii vielä runsaasti siistimistä - etenkin sivupohjat
