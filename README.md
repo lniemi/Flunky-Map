@@ -23,5 +23,7 @@ Tulen viemään sovelluksen tuotantoon jaettavaksi useille käyttäjille. Tähä
 
 ## Muuta, kehityksen tila yms.
   - Sovelluksen keskeneräinen versio on testattavissa fly.io:ssa https://flunkymap.fly.dev/
-  - Tällä hetkellä sovelluksessa toimii kirjautuminen ja paikan merkitseminen kartan avulla tietokantaan. 
-  - Keskeisen ominaisuuden eli sijainin lisääminen kartalle onnistuu, vaikka lomake ei annakkaan käyttäjälle palautetta tietojen menemisestä läpi. 
+  - Sijannit näkyvät kartalla
+  - Lomake uuden sijainnin lisäämiseksi toimii *tarpeeksi* hyvin tietokoneen selaimella. Mobiiliselaimella lomake ei kuitenkaan mukaudu näytölle ikkunan koon mukaisesti. 
+  - Profiilisivu on tekemeättä. 
+  - Kuvien näyttäminen ei 'all locations' sivulla onnistu. Kuvat siirtyvät tietokantaan kuitenkin lomakkeen kautta. 
