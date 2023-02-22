@@ -23,7 +23,7 @@ Tulen viemään sovelluksen tuotantoon jaettavaksi useille käyttäjille. Tähä
 
 ## Muuta, kehityksen tila yms.
   - Sovelluksen keskeneräinen versio on testattavissa fly.io:ssa https://flunkymap.fly.dev/
-  - Sijannit näkyvät kartalla
+  - Sijannit näkyvät kartalla. Aina sijainnit eivät kuitenkaan ensiyrittämällä lataudu, vaan tämä pitää tehdä päivittämällä sivu uudelleen. 
   - Lomake uuden sijainnin lisäämiseksi toimii *tarpeeksi* hyvin tietokoneen selaimella. Mobiiliselaimella lomake ei kuitenkaan mukaudu näytölle ikkunan koon mukaisesti. 
   - Profiilisivu on tekemeättä. 
   - Kuvien näyttäminen ei 'all locations' sivulla onnistu. Kuvat siirtyvät tietokantaan kuitenkin lomakkeen kautta. 
