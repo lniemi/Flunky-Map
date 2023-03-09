@@ -49,16 +49,31 @@
 </head>
 <body>
     {% if session.username %}
-    <p style="text-align: center;">Press the button below to enter new location to the map</p>
-    <form action="/karttaesimerkki3" style="text-align: center;">
-        <input type="submit" value="New location">
-    </form>
-    <p>Logged in as {{ session.username }}</p>
-    <a href="/profile">Go to your profile</a>
-    <a href="/logout">Log out</a>
+        <p style="text-align: center;">See the locations by pressing the button below!</p>
+        <form action="/map" style="text-align: center;">
+            <input type="submit" value="All locations">
+        </form>
+        <p style="text-align: center;">Press the button below to enter new location to the map</p>
+        <form action="/karttaesimerkki3" style="text-align: center;">
+            <input type="submit" value="New location">
+        </form>
+        
+        <form action="/forum" style="text-align: center;">
+            <input type="submit" value="Forum">
+        </form>
+        <p>Logged in as {{ session.username }}</p>
+        <!-- <a href="/profile">Go to your profile</a> -->
+        <a href="/logout">Log out</a>
     {% else %}
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
+        <p style="text-align: center;">See the locations by pressing the button below!</p>
+        <form action="/map" style="text-align: center;">
+            <input type="submit" value="All locations">
+        </form>
+        <form action="/forum" style="text-align: center;">
+            <input type="submit" value="Forum">
+        </form>
+        <p style="text-align: center;">To enter a new location on the map, please<br><br><br><a href="/login">Log in</a> or <a href="/register">Register</a></p>
     {% endif %}
+
 </body>
 {% endblock %}
