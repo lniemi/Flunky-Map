@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+{% block title %}Uusi ketju{% endblock %}
+{% block content %}
+<head>
+    <style>
+        body {
+    margin: auto;
+    max-width: 80em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background: #FF8C00;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+
+
+.header {
+    position: relative;
+    background: #D2691E;
+    font-weight: bold;
+    padding: 1em;
+    font-size: 2em;
+    border-radius: 10px;
+}
+
+
+#main_title {
+    display: block;
+}
+
+.login {
+    position:absolute;
+    top: 1em;
+    right: 1em;
+    font-size: 16px;
+    display: block;
+}
+
+#search {
+    position:absolute;
+    left: 1em;
+    bottom: 1em;
+    font-size: 1em;
+}
+
+.footer {
+    height: 4em;
+    background: #D2691E;
+    position: center;
+    padding: 2em;
+}
+
+.content {
+    position: relative;
+    background: #ff9447;
+    padding: 1em;
+    margin: 0.5em;
+}
+
+.small_section {
+    position: relative;
+    padding: 0.1em;
+}
+
+.text_left {
+    position: absolute;
+    left: 1em;
+    top: 1em;
+}
+
+.button_right {
+    position: absolute;
+    right: 1em;
+    top: 1em;
+}
+
+.button_right_bottom {
+    position: absolute;
+    right: 1.5em;
+    bottom: 1.5em;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.big_link {
+    font-size: 26px;
+    margin: 0.3em;
+}
+
+.answer_meta {
+    background: lightgrey;
+    padding: 0.1em;
+    margin-bottom: 1em;
+}
+
+.answer_meta p {
+    display: inline-block;
+    vertical-align: top;
+}
+    </style>
+</head>
+<p>Luo uusi ketju alueelle: <b>{{ section.name }}</b></p>
+<form action="/forum/create/{{ section.id }}" method="POST" onsubmit="return check(this)">
+    <p>Aihe:<br>
+    <input type="text" name="topic"></p>
+    <p>Viesti:</p>
+    <textarea name="message" rows="3" cols="40"></textarea>
+    <input type="hidden" name="section" value="{{ section.id }}">
+    <input type="submit" value="Luo ketju">
+</form>
+
+<script>
+function check(form) {
+    if (form.topic.value.length > 100) {
+        alert("Otsikko on liian pitkä, sen pitää olla alle 100 merkkiä");
+        return false;
+    }
+    if (form.topic.value.length < 3) {
+        alert("Otsikko on liian lyhyt, sen pitää olla vähintään 3 merkkiä")
+    }
+    if (form.message.value.length > 5000) {
+        alert("Viesti on liian pitkä, sen pitää olla alle 5000 merkkiä")
+        return false;
+    }
+    return true;
+}
+</script>
+
+{% endblock %}
