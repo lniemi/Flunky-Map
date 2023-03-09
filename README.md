@@ -1,7 +1,7 @@
 # Flunky-Map
 
 ## Esittely
-### Tämä sovellus on osa kurssia "Tietokantasovelus", joka on tietojenkäsittelytieteen harjoitustyökurssi, jossa toteutetaan tietokantaa käyttävä web-sovellus.
+### Tämä sovellus on osa kurssia "Tietokantasovellus", joka on tietojenkäsittelytieteen harjoitustyökurssi, jossa toteutetaan tietokantaa käyttävä web-sovellus.
 
 Sovellus on tietokantaan perustuva karttasovellus, jolla näytetään flunkyyn soveltuvat pelipaikat. Pelipaikkojen lisäys karttaan tapahtuu käyttäjän antamien parametrien pohjalta. Lisäksi sovelluksessa on forum-palsta, jossa voi esimerkiksi sopia etukäteen flunkyottelusta tai keskustella lajin säännöistä. 
 
