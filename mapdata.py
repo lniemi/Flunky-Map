@@ -1,16 +1,8 @@
 from db import db
 import users
 
-#def new_location(lng, lat, place_name, peacefulness, username):
-def new_location(lng, lat, place_name, peacefulness):
-    creator = users.user_id()
-    #username = users.username()
-    sql = "INSERT INTO locations (creator, lng, lat, place_name, peacefulness) VALUES (:creator, :lng, :lat, :place_name, :peacefulness)"
-    db.session.execute(sql, {"creator":creator, "lng":lng, "lat":lat, "place_name":place_name, "peacefulness":peacefulness})
-    db.session.commit()
-    return True
 
-def new_location1(lng, lat, place_name, space, ground_type, surroundings, crowds, light, restrooms, image=None):
+def new_location1(lng, lat, place_name, space, ground_type, surroundings, crowds, light, restrooms, image):
     if image is None:
         creator = users.user_id()
         sql = "INSERT INTO form_data (creator, lng, lat, place_name, space, ground_type, surroundings, crowds, light, restrooms, image) VALUES (:creator, :lng, :lat, :place_name, :space, :ground_type, :surroundings, :crowds, :light, :restrooms, :image)"
@@ -28,4 +20,13 @@ def get_locations():
     sql = "SELECT * FROM form_data"
     result = db.session.execute(sql)
     return result.fetchall()
-   
+    
+def get_location_by_id(id):
+    sql = "SELECT * FROM form_data WHERE id=:id"
+    result = db.session.execute(sql, {"id": id})
+    return result.fetchone()
+
+def get_creator_by_id(id):
+    sql = "SELECT username FROM users WHERE id=:id"
+    result = db.session.execute(sql, {"id": id})
+    return result.fetchone()[0]
