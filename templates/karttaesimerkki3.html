@@ -39,11 +39,13 @@
     }
 
     form {
-    width: 500px; /* or any other value */
+    width: 400px; /* or any other value */
     height: 700px; /* or any other value */
     padding: 20px;
+    overflow: auto;
     background-color: orange;
     border: 1px solid gray;
+    border-radius: 20px; /* Set the border radius to 10px */
     }
 
     label {
@@ -51,7 +53,7 @@
     }
 
     input[type="text"], input[type="number"] {
-    width: 400px;
+    width: 300px;
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid gray;
@@ -109,33 +111,47 @@
 
   // UUSi
   map.flyTo({
-    offset: [0, -window.innerHeight * -0.33], // shift the center 25% up from the bottom of the page
+    offset: [0, -window.innerHeight * -0.40], // shift the center 25% up from the bottom of the page
     center: [lng, lat],
     essential: true // this animation is considered essential with respect to prefers-reduced-motion
   });
 
+ 
 
   // Create a form with hidden fields for the lng and lat values
   var form = document.createElement('form');
   form.id = "form";
+  form.style.height = "70vh"; // set the height to 90% of the viewport height
+  form.style.overflow = "auto"; // set overflow to auto to enable scrolling
   form.innerHTML = 
                   '<div>' +
-                  '<label>Coordinates:</label>' +
-                  '<input type="text" name="coordinates" value="' + lng + ', ' + lat + '" readonly>' +
+                  '<label>Coordinates:<br></label>' +
+                  '<input type="text" name="coordinates" value="' + lat + ', ' + lng + '" readonly>' +
                   '</div>' +
                   '<input type="hidden" name="lng" value="' + lng + '">' +
                   '<input type="hidden" name="lat" value="' + lat + '">' +
                   '<input type="hidden" name="username" value="' + (sessionStorage.getItem('username') || '') + '">' +
                   '<div>' +
-                  '<label>Place Name:</label>' +
+                  '<label>Place Name:<br></label>' +
                   '<input type="text" name="place_name">' +
                   '</div>' +
-                  '<label>1. Space: How big is the area and is there enough space to set up<br> the playing ground?</label>' +
+                  '<label>1. Space: How big is the area and is there enough space to set up the playing ground?</label>' +
                   '<div>' +
-                  '<input type="number" name="space" min="0" max="10">' +
+                  '<select name="space">' +
+                    '<option value="0">0 - Not Enough Space</option>' +
+                    '<option value="1">1</option>' +
+                    '<option value="2">2</option>' +
+                    '<option value="3">3</option>' +
+                    '<option value="4">4</option>' +
+                    '<option value="5">5 - Enough Space</option>' +
+                    '<option value="6">6</option>' +
+                    '<option value="7">7</option>' +
+                    '<option value="8">8</option>' +
+                    '<option value="9">9</option>' +
+                    '<option value="10">10 - Lots of Space</option>' +
+                  '</select>' +
                   '</div>' +
-                  '<label>2. Ground Type:</label>' +
-                  '<div>' +
+                  '<label><br>2. Ground Type:<br></label>' +
                   '<select name="ground_type">' +
                     '<option value="grass">Grass Or Artificial Turf</option>' +
                     '<option value="asphaltetc">Asphalt Or Concrete (etc.)</option>' +
@@ -145,19 +161,57 @@
                   '</select>' +
                   '</div>' +
                   '<div>' +
-                  '<label><br>3. Surroundings: How much do obstacles <br>(e.g. trees, rocks, constuction structures) or hazards (e.g. uneven ground)<br> impact the area?</label>' +
+                  '<label><br>3. Surroundings: How much do obstacles (e.g. trees, rocks, constuction structures) or hazards (e.g. uneven ground) impact the area?</label>' +
                   '</div>' +
-                  '<input type="number" name="surroundings" min="0" max="10">' +
                   '<div>' +
-                  '<label>4. Crowds: Is the area busy and are there many people around?</label>' +
+                  '<select name="surroundings">' +
+                    '<option value="0">0 - No Obstacles/Hazards</option>' +
+                    '<option value="1">1</option>' +
+                    '<option value="2">2</option>' +
+                    '<option value="3">3</option>' +
+                    '<option value="4">4</option>' +
+                    '<option value="5">5 - Some Obstacles/Hazards</option>' +
+                    '<option value="6">6</option>' +
+                    '<option value="7">7</option>' +
+                    '<option value="8">8</option>' +
+                    '<option value="9">9</option>' +
+                    '<option value="10">10 - Lots of Obstacles/Hazards</option>' +
+                  '</select>' +
                   '</div>' +
-                  '<input type="number" name="crowds" min="0" max="10">' +
                   '<div>' +
-                  '<label>5. Lighting: Is the location well-lit, especially in the evening?</label>' +
+                  '<label><br>4. Crowds: Is the area busy and are there many people around?</label>' +
                   '</div>' +
-                  '<input type="number" name="light" min="0" max="10">' +
+                  '<select name="crowds">' +
+                   '<option value="0">0 - No people around</option>' +
+                    '<option value="1">1</option>' +
+                    '<option value="2">2</option>' +
+                    '<option value="3">3</option>' +
+                    '<option value="4">4</option>' +
+                    '<option value="5">5 - Some people around</option>' +
+                    '<option value="6">6</option>' +
+                    '<option value="7">7</option>' +
+                    '<option value="8">8</option>' +
+                    '<option value="9">9</option>' +
+                    '<option value="10">10 - Lots of people around</option>' +
+                  '</select>' +
                   '<div>' +
-                  '<label>6. Are there restrooms nearby? (Yes/No/Do not know)</label>' +
+                  '<label><br>5. Lighting: Is the location well-lit, especially in the evening?</label>' +
+                  '</div>' +
+                  '<select name="light">' +
+                    '<option value="0">0 - Very poor lighting</option>' +
+                    '<option value="1">1</option>' +
+                    '<option value="2">2</option>' +
+                    '<option value="3">3</option>' +
+                    '<option value="4">4</option>' +
+                    '<option value="5">5 - Somewhat good lighting</option>' +
+                    '<option value="6">6</option>' +
+                    '<option value="7">7</option>' +
+                    '<option value="8">8</option>' +
+                    '<option value="9">9</option>' +
+                    '<option value="10">10 - Excellent lighting</option>' +
+                  '</select>' +
+                  '<div>' +
+                  '<label><br>6. Are there restrooms nearby? (Yes/No/Do not know)</label>' +
                   '<div>' +
                   '<select name="restrooms">' +
                     '<option value="Yes">Yes</option>' +
@@ -166,7 +220,7 @@
                   '</select>' +
                   '</div>' +
                   '<div>' +
-                  '<label for="image">Upload Image (optional):</label>' +
+                  '<label for="image">Upload Image (optional):<br></label>' +
                   '<input type="file" name="image" id="image">' +
                   '<input type="submit" value="Submit">'; +
                   '</div>'
@@ -183,10 +237,47 @@
   // Add the form to the page and position it in the middle of the screen
   document.body.appendChild(form);
   form.style.position = 'absolute';
-  form.style.left = (window.innerWidth / 2) - (form.offsetWidth / 2) + 'px';
-  form.style.top = '100px';
-  form.style.padding = '20px';
-  form.style.zIndex = '999';
+  form.style.left = '50%';
+  form.style.transform = 'translateX(-50%)';
+
+
+
+
+  // create a function to set the form width based on the screen size
+  function setFormWidth() {
+    var screenWidth = window.innerWidth;
+    var formWidth = screenWidth > 480 ? "480px" : "90%"; // set the form width to 480px on screens wider than 480px, and to 90% of the screen width otherwise
+    form.style.width = formWidth;
+  }
+
+  function positionForm() {
+    var screenHeight = window.innerHeight;
+    var formHeight = form.offsetHeight;
+    var topOffset = (screenHeight - formHeight) / 4;
+    form.style.top = topOffset + "px";
+    form.style.overflow = "auto";
+  }
+
+  positionForm();
+
+  // call the function once to set the initial form width
+  setFormWidth();
+
+  // add an event listener to the window to set the form width whenever the screen size changes
+  window.addEventListener("resize", setFormWidth);
+
+  // create a close button
+  var closeButton = document.createElement("button");
+  closeButton.innerHTML = "X";
+  closeButton.style.position = "absolute";
+  closeButton.style.top = "5px";
+  closeButton.style.right = "5px";
+  closeButton.addEventListener("click", function() {
+    document.body.removeChild(form);
+  });
+
+// add the close button to the form
+form.appendChild(closeButton);
 
   //Handle the form submission
   form.addEventListener("submit", function(event){
@@ -201,7 +292,7 @@
     })
     .then(response => {
         if (response.ok) {
-            window.location.href = "/thankyou";
+          window.location.replace("/thankyou");
         } else {
             throw new Error("Network response was not ok.");
         }
