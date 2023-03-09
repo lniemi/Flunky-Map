@@ -1,5 +1,53 @@
 {% extends "layout.html" %}
 {% block content %}
+<head>
+    <style>
+        body {
+        background-color: #FF8C00;
+        font-family: Arial, sans-serif;
+        }
+
+        form {
+        background-color: #FFA07A;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin: 20px auto;
+        width: 300px;
+        }
+
+        input[type="submit"] {
+        background-color: #D2691E;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        }
+
+        p {
+        color: white;
+        text-align: left;
+        margin-left: 20px;
+        }
+
+        a {
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        background-color: #D2691E;
+        text-decoration: none;
+        margin: 20px;
+        text-align: center;
+        }
+
+        i {
+        color: white;
+        margin-left: 20px;
+        }
+    </style>
+</head>
 
 <form action="/login" method="POST">
     <p>Username:
@@ -10,7 +58,7 @@
 </form>
 
 <p>Don't have an account?</p>
-<a href="/register">Register</a><br>
+<a href="/register">Register</a><br><br><br>
 <a href="/">Return to main page</a>
 
 {% endblock %}
