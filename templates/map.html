@@ -29,12 +29,65 @@
     cursor: pointer;
     }
 
+    .dropdown {
+    position: relative;
+    display: inline-block;
+    }
+
+    .dropbtn {
+    background-color: #362c00;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    }
+
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    }
+
+    .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    }
+
+    .dropdown-content a:hover {background-color: #ddd;}
+
+    .dropdown:hover .dropdown-content {display: block;}
+
+    .dropdown:hover .dropbtn {background-color: #ffae00;}
+
+
 
   </style>
 </head>
 <body>
-<div id='map'></div>
 
+      
+<div id='map'></div>
+<div class="dropdown">
+    <button class="dropbtn">Menu</button>
+    <div class="dropdown-content">
+        <a href="/">Front page</a>
+        <a href="/forum">Forum</a>
+        {% if session.username %}
+        <a href="#">Profile</a>
+        <a href="/karttaesimerkki3">New location</a>
+        <a href="/logout">Log out</a>
+        {% else %}
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+        {% endif %}
+    </div>
+</div>
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibG5pZW1pIiwiYSI6ImNsZDc5amdsczA1cGozcm84c25xeGcyejkifQ.z9H43WLo3Xb6z6iGTedp0A';
     
@@ -72,8 +125,31 @@
         // add a popup for each marker
         map.on('click', 'locations', function(e) {
             var place_name = e.features[0].properties.place_name;
+            // new
+            var space = e.features[0].properties.space;
+            var ground_type = e.features[0].properties.ground_type;
+            var surroundings = e.features[0].properties.surroundings;
+            var crowds = e.features[0].properties.crowds;
+            var light = e.features[0].properties.light;
+            var restrooms = e.features[0].properties.restrooms;
+            var image = e.features[0].properties.image;
+            var id = e.features[0].properties.id;
+            // convert the bytea data to base64-encoded string
+            var base64Image = btoa(String.fromCharCode.apply(null, new Uint8Array(image)));
+            //
             var coordinates = e.features[0].geometry.coordinates.slice();
-            var description = 'Place Name: ' + place_name;
+            // var description = 'Place Name: ' + place_name;
+            // new
+            console.log(e.features[0].properties);
+            var description = '<h3>' + place_name + '</h3>' +
+                '<p><strong>Space:</strong> ' + space + '</p>' +
+                '<p><strong>Ground type:</strong> ' + ground_type + '</p>' +
+                '<p><strong>Surroundings:</strong> ' + surroundings + '</p>' +
+                '<p><strong>Crowds:</strong> ' + crowds + '</p>' +
+                '<p><strong>Light:</strong> ' + light + '</p>' +
+                '<p><strong>Restrooms:</strong> ' + restrooms + '</p>'  +
+                '<a href="/map/' + id + '">See more</a>';
+                //'<img src="data:image/png;base64,' + base64Image + '">';
     
             new mapboxgl.Popup()
                 .setLngLat(coordinates)
@@ -91,6 +167,29 @@
             map.getCanvas().style.cursor = '';
         });
     });
+
+            // Get the dropdown button and content elements
+        const dropdownBtn = document.querySelector(".dropbtn");
+        const dropdownContent = document.querySelector(".dropdown-content");
+
+        // Add a click event listener to the dropdown button
+        dropdownBtn.addEventListener("click", () => {
+        // Toggle the "show" class on the dropdown content
+        dropdownContent.classList.toggle("show");
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener("click", (event) => {
+        if (!event.target.matches(".dropbtn")) {
+            const dropdowns = document.querySelectorAll(".dropdown-content");
+            dropdowns.forEach((dropdown) => {
+            if (dropdown.classList.contains("show")) {
+                dropdown.classList.remove("show");
+            }
+            });
+        }
+        });
+
     </script>>
 </body>
 </html> 
