@@ -31,3 +31,38 @@ CREATE TABLE form_data (
   CHECK (ground_type IN ('grass', 'asphaltetc', 'gravel', 'indoor', 'other')),
   CHECK (restrooms IN ('Yes', 'No', 'NoInfo'))
 );
+
+CREATE TABLE sections (
+    id SERIAL PRIMARY KEY,
+    name TEXT UNIQUE,
+    access INTEGER DEFAULT 1
+);
+
+CREATE TABLE threads (
+    id SERIAL PRIMARY KEY,
+    topic TEXT,
+    created_at TIMESTAMP,
+    message TEXT,
+    user_id INTEGER REFERENCES users,
+    section_id INTEGER REFERENCES sections,
+    visible INTEGER DEFAULT 1
+);
+
+CREATE TABLE answers (
+    id SERIAL PRIMARY KEY,
+    topic_id INTEGER REFERENCES threads,
+    sent_at TIMESTAMP,
+    answer TEXT,
+    user_id INTEGER REFERENCES users,
+    visible INTEGER DEFAULT 1
+);
+
+CREATE TABLE votes (
+    id SERIAL PRIMARY KEY,
+    answer_id INTEGER REFERENCES answers,
+    user_id INTEGER REFERENCES users,
+    vote INTEGER
+);
+
+ALTER TABLE users ADD COLUMN role INT NOT NULL DEFAULT 1;
+UPDATE users SET role=1;
