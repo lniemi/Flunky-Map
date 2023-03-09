@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block content %}
+<head>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+        }
+
+        h1 {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: -20px;
+        }
+
+        ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 auto;
+        margin-top: 300px;
+        width: 300px;
+        }
+
+        li {
+        margin: 10px;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        img {
+        max-width: 100%;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        a {
+        display: block;
+        text-align: center;
+        margin: 2px auto;
+        padding: 10px 20px;
+        background-color: #D2691E;
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 18px;
+        width: 200px;
+        }
+
+        a:hover {
+        background-color: #FF8C00;
+        }
+
+        #map {
+        width: 400px;
+        height: 200px;
+        margin: auto;
+        position: absolute;
+        top: 150px; /* or adjust this value to position the map vertically */
+        left: 0;
+        right: 0;
+        }
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <h1>Location Information</h1>
+    
+    <ul>
+        <li>Creator: {{ creator }}</li>
+        <li>Place Name: {{ location.place_name }}</li>
+        <li>Space: {{ location.space }}</li>
+        <li>Ground Type: {{ location.ground_type }}</li>
+        <li>Surroundings: {{ location.surroundings }}</li>
+        <li>Crowds: {{ location.crowds }}</li>
+        <li>Light: {{ location.light }}</li>
+        <li>Restrooms: {{ location.restrooms }}</li>
+        <li>Latitude: {{ location.lat }}</li>
+        <li>Longitude: {{ location.lng }}</li> 
+        {% if image_src %}
+            Creator image:
+            <img src="{{ image_src }}" alt="Location Image">
+        {% endif %}
+
+    </ul>
+
+      
+    <div id="map"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoibG5pZW1pIiwiYSI6ImNsZDc5amdsczA1cGozcm84c25xeGcyejkifQ.z9H43WLo3Xb6z6iGTedp0A';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/lniemi/cldcdrjqd000l01nmanxwhojf',
+        center: [{{ location.lng }}, {{ location.lat }}],
+        zoom: 15.5,
+        pitch: 45
+    });
+
+    const marker = new mapboxgl.Marker({
+    color: '#F84C4C'
+    }).setLngLat([{{ location.lng}}, {{location.lat}}]).addTo(map);
+
+    
+
+    //const marker = new mapboxgl.Marker({
+    //color: '#F84C4C'
+    //}).setLngLat([{{ location.lng}}, {{location.lat}}]).setPopup(new mapboxgl.Popup().setHTML("<p>" + address + "</p>")).addTo(map);
+
+
+    function rotateCamera(timestamp) {
+        // clamp the rotation between 0 -360 degrees
+        // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
+        map.rotateTo((timestamp / 100) % 360, { duration: 0 });
+        // Request the next frame of the animation.
+        requestAnimationFrame(rotateCamera);
+    }
+
+    map.on('load', () => {
+        // Start the animation.
+        rotateCamera(0);
+
+        // Add 3D buildings and remove label layers to enhance the map
+        const layers = map.getStyle().layers;
+        for (const layer of layers) {
+            if (layer.type === 'symbol' && layer.layout['text-field']) {
+                // remove text labels
+                map.removeLayer(layer.id);
+            }
+        }
+
+     map.addLayer({
+            //'id': '3d-buildings',
+            'id': 'labels',
+            'type': 'symbol',
+            'source': 'composite',
+            'source-layer': 'place_label', // or 'road_label' for streets
+            'layout': {
+                'text-field': '{name}', // this shows the name of the place or street
+                'text-size': 14,
+                'text-font': ['Open Sans Regular'], // replace with the font you want to use
+                'symbol-placement': 'line' // set to 'point' for place names
+            },
+            'source': 'composite',
+            'source-layer': 'building',
+            'filter': ['==', 'extrude', 'true'],
+            'type': 'fill-extrusion',
+            'minzoom': 15,
+            'paint': {
+                'fill-extrusion-color': '#aaa',
+
+                // use an 'interpolate' expression to add a smooth transition effect to the
+                // buildings as the user zooms in
+                'fill-extrusion-height': [
+                    'interpolate',
+                    ['linear'],
+                    ['zoom'],
+                    15,
+                    0,
+                    15.05,
+                    ['get', 'height']
+                ],
+                'fill-extrusion-base': [
+                    'interpolate',
+                    ['linear'],
+                    ['zoom'],
+                    15,
+                    0,
+                    15.05,
+                    ['get', 'min_height']
+                ],
+                'fill-extrusion-opacity': 0.6
+            }
+
+            
+        });
+
+
+    });
+    </script>
+</body>
+</html>
+{% endblock %}
